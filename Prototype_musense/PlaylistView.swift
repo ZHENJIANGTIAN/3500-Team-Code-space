@@ -1,19 +1,16 @@
 import SwiftUI
 
 struct PlaylistView: View {
-    @Environment(\.dismiss) private var dismiss
     @State private var showSongDetail = false
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 12) {
-                    // the first song is clickable
                     PlayableRowView {
                         showSongDetail = true
                     }
-                    
-                    // others are not clickable
+
                     ForEach(1..<5) { index in
                         DisabledRowView(songIndex: index)
                     }
@@ -22,17 +19,17 @@ struct PlaylistView: View {
                 .padding(.top, 4)
             }
 
-        }
-        .sheet(isPresented: $showSongDetail) {
-            SimpleLyricsView()
+            .navigationDestination(isPresented: $showSongDetail) {
+                SimpleLyricsView()
+            }
+
         }
     }
 }
 
-// gravity
 struct PlayableRowView: View {
     let action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             SongRowContent(
@@ -51,14 +48,13 @@ struct PlayableRowView: View {
     }
 }
 
-// not Clickable
 struct DisabledRowView: View {
     let songIndex: Int
-    
+
     var body: some View {
         SongRowContent(
             title: "Song \(songIndex + 1)",
-            artist: "John Mayer \(songIndex + 1)",
+            artist: "John Mayer",
             iconColor: .gray,
             textColor: .gray,
             showChevron: false
@@ -71,20 +67,19 @@ struct DisabledRowView: View {
     }
 }
 
-// structure
 struct SongRowContent: View {
     let title: String
     let artist: String
     let iconColor: Color
     let textColor: Color
     let showChevron: Bool
-    
+
     var body: some View {
         HStack(spacing: 12) {
             Image(systemName: "music.note")
                 .foregroundColor(iconColor)
                 .font(.body)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.caption)
@@ -95,9 +90,9 @@ struct SongRowContent: View {
                     .foregroundColor(.secondary)
                     .lineLimit(1)
             }
-            
+
             Spacer()
-            
+
             if showChevron {
                 Image(systemName: "chevron.right")
                     .font(.caption2)
@@ -110,3 +105,4 @@ struct SongRowContent: View {
 #Preview {
     PlaylistView()
 }
+

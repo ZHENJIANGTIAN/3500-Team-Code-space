@@ -4,21 +4,19 @@ struct FirstPageView: View {
     @State private var showPlaylist = false
     
     var body: some View {
-        VStack(spacing: 15) {
+        VStack(spacing: 5) {
             Spacer()
             
-            // center content
             Image(systemName: "music.note.list")
                 .font(.system(size: 60))
                 .foregroundColor(.blue)
             
-            Text("John Mayer - Solo Tour")
+            Text("John Mayer")
                 .font(.headline)
                 .multilineTextAlignment(.center)
             
             Spacer()
             
-            // check playlist button
             Button(action: {
                 showPlaylist = true
             }) {

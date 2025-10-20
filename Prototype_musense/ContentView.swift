@@ -1,9 +1,3 @@
-//
-//  ContentView.swift
-//  concertgo Watch App
-//
-//  Created by Yu Zhang on 16/9/2025.
-//
 import SwiftUI
 
 struct ContentView: View {
@@ -11,13 +5,11 @@ struct ContentView: View {
         NavigationStack {
             VStack(spacing: 15) {
                 
-                // app name
                 Text("Musense")
                     .font(.title3)
                     .fontWeight(.bold)
-                    .padding(.bottom, 0)
+                    .padding(.bottom, -5)
                 
-                // lyrics nav button
                 NavigationLink(destination: FirstPageView()) {
                     HStack {
                         Image(systemName: "music.note")
@@ -33,7 +25,6 @@ struct ContentView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-                // colour nav button
                 NavigationLink(destination: SecondPageView()) {
                     HStack {
                         Image(systemName: "swatchpalette.fill")
@@ -49,8 +40,7 @@ struct ContentView: View {
                 }
                 .buttonStyle(PlainButtonStyle())
                 
-                // social nav button
-                NavigationLink(destination: SecondPageView()) {
+                NavigationLink(destination: SocialView()) {
                     HStack {
                         Image(systemName: "party.popper.fill")
                             .foregroundColor(.white)

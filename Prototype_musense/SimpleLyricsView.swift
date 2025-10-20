@@ -5,7 +5,6 @@ struct SimpleLyricsView: View {
     @State private var currentLyricIndex = 0
     @State private var timer: Timer?
     
-    // lyrics data
     private let lyrics = [
         "Gravity is working against me",
         "And gravity wants to bring me down",
@@ -21,14 +20,12 @@ struct SimpleLyricsView: View {
     
     var body: some View {
         ZStack {
-            // background
             Color.black
                 .ignoresSafeArea()
             
             VStack {
                 Spacer()
                 
-                // lyrics container
                 Text(lyrics[currentLyricIndex])
                     .font(.title3)
                     .fontWeight(.medium)
@@ -39,7 +36,6 @@ struct SimpleLyricsView: View {
                 
                 Spacer()
                 
-                // progress
                 HStack(spacing: 8) {
                     ForEach(0..<lyrics.count, id: \.self) { index in
                         Circle()
@@ -62,16 +58,14 @@ struct SimpleLyricsView: View {
             dismiss()
         }
     }
-    
-    // lyrics timer
+
     private func startLyricTimer() {
         timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
             withAnimation {
                 if currentLyricIndex < lyrics.count - 1 {
                     currentLyricIndex += 1
                 } else {
-                    // start or end the loop
-                    currentLyricIndex = 0 // loop
+                    currentLyricIndex = 0
                 }
             }
         }
