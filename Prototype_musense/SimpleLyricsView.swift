@@ -1,32 +1,34 @@
 import SwiftUI
 
 struct SimpleLyricsView: View {
+    struct LyricLine {
+        let text: String
+        let duration: TimeInterval
+    }
+    
     @Environment(\.dismiss) private var dismiss
     @State private var currentLyricIndex = 0
     @State private var timer: Timer?
     
-    private let lyrics = [
-        "Gravity is working against me",
-        "And gravity wants to bring me down",
-        "Oh, I'll never know what makes this man",
-        "With all the love that his heart can stand",
-        "Dream of ways to throw it all away",
-        "Gravity is working against me",
-        "And gravity wants to bring me down",
-        "Oh, twice as much ain't twice as good",
-        "And can't sustain like one half could",
-        "It's wanting more that's gonna send me to my knees"
+    private let lyrics: [LyricLine] = [
+        .init(text: "Gravity", duration: 3),
+        .init(text: "is working against me", duration: 7),
+        .init(text: "And gravity", duration: 5),
+        .init(text: "wants to bring me down", duration: 6),
+        .init(text: "Oh, I'll never know", duration: 4),
+        .init(text: "what makes this man", duration: 3),
+        .init(text: "With all the love", duration: 2),
+        .init(text: "that his heart can stand", duration: 4),
+        .init(text: "Dream of ways to throw it all away", duration: 8),
     ]
     
     var body: some View {
         ZStack {
-            Color.black
-                .ignoresSafeArea()
-            
+            Color.black.ignoresSafeArea()
             VStack {
                 Spacer()
                 
-                Text(lyrics[currentLyricIndex])
+                Text(lyrics[currentLyricIndex].text)
                     .font(.title3)
                     .fontWeight(.medium)
                     .foregroundColor(.white)
@@ -49,7 +51,7 @@ struct SimpleLyricsView: View {
         }
         .navigationBarHidden(true)
         .onAppear {
-            startLyricTimer()
+            scheduleNextTick()
         }
         .onDisappear {
             stopLyricTimer()
@@ -58,9 +60,11 @@ struct SimpleLyricsView: View {
             dismiss()
         }
     }
-
-    private func startLyricTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+    
+    private func scheduleNextTick() {
+        stopLyricTimer()
+        let interval = max(0.1, lyrics[currentLyricIndex].duration)
+        timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: false) { _ in
             withAnimation {
                 if currentLyricIndex < lyrics.count - 1 {
                     currentLyricIndex += 1
@@ -68,10 +72,10 @@ struct SimpleLyricsView: View {
                     currentLyricIndex = 0
                 }
             }
+            scheduleNextTick()
         }
     }
     
-    // stop timer
     private func stopLyricTimer() {
         timer?.invalidate()
         timer = nil
@@ -81,3 +85,4 @@ struct SimpleLyricsView: View {
 #Preview {
     SimpleLyricsView()
 }
+

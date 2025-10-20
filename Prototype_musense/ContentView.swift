@@ -15,7 +15,7 @@ struct ContentView: View {
                         Image(systemName: "music.note")
                             .foregroundColor(.white)
                         Text("Lyrics Subtitle")
-                            .font(.body)
+                            .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)
@@ -30,7 +30,7 @@ struct ContentView: View {
                         Image(systemName: "swatchpalette.fill")
                             .foregroundColor(.white)
                         Text("Colour Change")
-                            .font(.body)
+                            .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)
@@ -45,7 +45,7 @@ struct ContentView: View {
                         Image(systemName: "party.popper.fill")
                             .foregroundColor(.white)
                         Text("Social Mode")
-                            .font(.body)
+                            .font(.subheadline)
                             .foregroundColor(.white)
                     }
                     .frame(maxWidth: .infinity)
